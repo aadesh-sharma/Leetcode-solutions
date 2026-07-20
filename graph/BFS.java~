@@ -1,0 +1,65 @@
+package graph;
+
+import java.util.*;
+
+public class BFS {
+
+    public static void main(String args[]) {
+        int V = 5;
+        List<Integer>[] adj =  new ArrayList[V];
+
+        for(int i=0;i<V;i++) {
+            adj[i] = new ArrayList<>();
+        }
+
+        adj[0].addAll(Arrays.asList(2, 3));
+        adj[1].addAll(Arrays.asList(2, 4));
+        adj[2].addAll(Arrays.asList(0, 1));
+        adj[3].add(0,4);
+        adj[4].add(3,1);
+
+        boolean[] visited = new boolean[V];
+        List<Integer> ans = new ArrayList<>();
+        Queue<Integer>q = new LinkedList<>();
+//        for(int i=0;i<V;i++) {
+//            if(!visited[i]) {
+                bfs(adj, 0);
+//            }
+//        }
+        for(int x: ans) {
+            System.out.print(x + " ");
+        }
+    }
+
+    public static void bfs(List<Integer>[] adj, int src) {
+        Queue<Integer> q = new LinkedList<>();
+        int V = adj.length;
+        boolean[] visited = new boolean[V];
+        List<Integer>res = new LinkedList<>();
+
+        q.add(src);
+        res.add(src);
+        visited[src] = true;
+
+        while(!q.isEmpty()) {
+            int size = q.size();
+            int node = q.poll();
+            for(int i=0;i<size;i++){
+                for(int child:  adj[node]) {
+                    if(!visited[child]) {
+                        visited[child] = true;
+                        q.add(child);
+                        res.add(child);
+                    }
+                }
+            }
+        }
+
+        for(int x: res) {
+            System.out.print(x + " ");
+        }
+
+
+    }
+
+}
